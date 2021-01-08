@@ -1,158 +1,163 @@
-# Mai Protocol v3: Permissionless Perpetual Swap Protocol based on an advanced AMM 
+# Protocolo de intercambio automático (Perpetual Swap) basado en AMM (creadores de mercado automáticos)
 
-## 1. Introduction
+## 1. Introducción
 
-Mai Protocol V3 designed by MCDEX is an AMM-based decentralized perpetual swap protocol. Perpetual swap is one of the most popular derivatives that has no expiration date, supports margin trading, and has its price soft pegged to index price. 
+El Protocolo Mai V3 diseñado por MCDEX es un creador de Mercado automatizado (AMM) basado en la permuta continua de protocolos descentralizados (Perpetual Swap)
+Este tipo de contrato es uno de los derivados financieros más populares puesto que no tiene fecha de caducidad, admite el trading de alta frecuencia y mantiene su precio vinculado al precio del índice.
+ 
 
-The goal of this protocol is to allow anyone to create and trade in any perpetual market. To start with, anyone can create their own perpetual market with the price feed of underlying asset and choose any ERC20 as collateral. Secondly, we have designed an AMM for the perpetual market and this AMM also has better capital efficiency. Moreover, AMM solves the liquidity problem - anyone can provide liquidity to AMM by depositing assets in the pool and get reasonable market making profit. At last, anyone can trade perpetual swaps permissionlessly. Traders’ assets are in the smart contract in a noncustodial way and the process of trading are conducted on chain completely. 
+El objetivo de este protocolo es permitir que cualquiera pueda crear y comerciar en cualquier mercado perpetuo. Sin ir más lejos, cualquiera puede crear su propio mercado perpetuo o de permuta financiera con el precio del activo subyacente y elegir entre los distintos tokens ERC 20 como garantía o colateral. En segundo lugar, hemos diseñado el AMM o creador de Mercado automatizado correspondiente al Mercado de permuta financiera, dotando al AMM de mayor capitalización y eficiencia. De la misma forma, el Mercado automatizado vendría a solucionar el problema de baja liquidez.
+Cualquier usuario puede proveer de liquidez  a cualquier Mercado automatizado depositando sus activos en una piscina o pool y generar por consiguiente ganancias de mercado razonables.
+Por último cualquiera puede realizar Perpetual Swaps en total libertad y de una forma absolutamente descentralizada. Los activos de los comerciantes o traders están integrados en los contratos inteligentes manteniendo en todo momento su custodia, de esta misma forma garantizando que los procesos de trading se realicen completamente dentro de la cadena principal y legítima. 
 
-The smart contract of the protocol has been strictly audited by a third party, and there is no admin key of the protocol, maximizing the decentralization and security of this protocol. 
+El contrato inteligente del protocolo está estrictamente auditado por terceras personas neutrales además de no disponer de la administración clave del protocolo, maximizando de esta forma la  descentralización y la seguridad del protocolo.
 
-We believe that permissionless is the key feature of this protocol, which can empower the whole community to contribute to the MCDEX ecosystem - anyone can create the perpetual market of an on-chain or off-chain synthetic assets. With the evolvement of MCDEX community, more diversified perpetual market will be created, and trading volume will be generated.
+Creemos que la clave principal del protocolo es que es totalmente abierto y descentralizado, enfocado a que el poder recaiga principalmente en la comunidad que apoya y contribuye con el ecosistema de MCDEX. Cualquier usuario podría crear un Mercado de permuta financiero con activos sintéticos ya sea en la cadena principal o en la red de pruebas conocida como testnet. Conforme crezca el desarrollo de la comunidad de MCDEX se generará inevitablemente más mercados de  permutas, generando por consiguiente mayor volumen de Mercado
 
-## 2. Perpetual Swaps
+## 2.  Mercados de permutas financieras (Perpetual Swaps)
 
-### 2.1 Market Participants 
-This protocol is completely based on AMM. Please refer to the MAI v3 AMM Design document for detailed information regarding AMM. 
+### 2.1 participantes del mercado
+Este protocolo está basado completamente en el AMM. Por favor referirse al diseño MAI V3 AMM documento con información detallada en todo lo referente al AMM
 
-There are following roles in the market: 
+El Mercado presenta los siguientes roles: 
 
-#### AMM
+#### AMM (Creador de Mercado Automatico)
 
-AMM plays the role of a central counterparty, providing liquidity for the perpetual swap. Like a normal trader, AMM has its independent margin account, and is able to hold positions. 
+AMM: Es el actor principal de contrapartida proporcionando liquidez al Perpetual Swap. Como un trader común, AMM presenta su cuenta marginal independiente y tiene la cualidad de aguantar posiciones de mercado.
 
-#### Operator
+#### Operador
 
-An operator is the creator and manager of the perpetual swap. 
-- How to become an Operator:
-  - Create a perpetual swap and set the initial parameters (such as margin rate, AMM risk parameters, etc.). The AMM of perpetual swap has a set of risk parameters. By adjusting these parameters, an operator is able to change AMM’s market making risk, market depth, slippage, and spread etc. 
-  - Pay for (or provide) Oracle service. The protocol defines an Oracle interface so that the currently available Oracles can be applied in this protocol. An operator can provide their own Oracle data to perpetual swaps as well. 
-  - An operator can set a range of the risk parameters and adjust the risk parameters within this range. 
-  - The operator can initiate the governance process to change the range of the risk parameters. (see 2.9 AMM parameters and governance)
-  - Operator can transfer his role to other addresses and opt out their operator role. The perpetual market without an operator will be governed by LP.
-- Benefits:
-	- Profit from every trade by charging management fee set by themselves. 
-  - Incentives which are distributed to some potential pools that have good performances
-  - Initiate AMM governance proposal
+El operador en este caso es el creador y administrador del Perpetual Swap 
+- Pasos para convertirse en operador:
+  - Crear el Perpetual Swap y configurar los parámetros iniciales como la proporción marginal de trading, los parámetros de riesgo del AMM etc. El AMM of the Perpetual Swap incluye de entrada parámetros de riesgo. Al ajustar dichos parámetros, el operador tiene la facultad de cambiar el riesgo de mercado del AMM, la profundidad del mercado, incongruencias o propagación de desvíos etc.
+  - Pague (o proporcione) el servicio de oráculo. El protocolo define una interfaz de oráculos para que dichos oráculos ya definidos se puedan aplicar en este protocolo. Un operador también puede proporcionar sus propios datos obtenidos del oráculo a las permutas financieras. 
+  - Un operador puede establecer un rango de parámetros de riesgo y ajustar estos dentro del mismo rango. 
+  - Un operador puede iniciar el proceso de gobernanza para cambiar el nivel de los parámetros de riesgo. (ver 2.10 parámetros y gobernanza de AMM)
+  - El operador puede transferir su función a otras direcciones y excluir su función de operador. El mercado perpetuo  sin operador estará regido por proveedores de liquidez (LP).
+  
+- Beneficios:
+  - Benefíciese de cada operación cobrando una tarifa de gestión establecida por ellos mismos 
+  - Los incentivos se han de  distribuir potencialmente a piscinas de inversión que arrojen buenos resultados.
+  - iniciar propuesta de gobernanza AMM.
 
-- Risks: Not applicable 
+- Riesgos: No aplicable 
 
-#### Liquidity provider: 
-- How to become a LP:
-  - deposit collateral in the AMM pool
-- Benefits:
-	- Trading fee at a fixed ratio
-	- Profit from spread and slippage
-	- Funding payment paid by trader
-	- Liquidation penalty
-	- Incentive distributed to some potential AMM pools (see section 3.2 tokenomics)
-	- LP can participate in AMM governance (see section 2.10 The Parameters and Governance of AMM). 
-- Risks
-  - When AMM has position, there is a risk exposure. If the index price changes at this moment, there could be a loss on AMM. This loss will be shared by all LP. 
+#### Proveedor de liquidez:
+- Cómo convertirse en proveedor de liquidez
+  - Depositar el colateral o garantía en la pool de Mercado automatizado
+- Beneficios:
+	- Operaciones con comisiones fijas
+	- Benefícios en lo referente a la fluctuación del precio y sus discrepancias
+	- El trader se hace cargo de los pagos de financiación
+	- Sanción por liquidación
+	- El incentivo se distribuirá potencialmente entre pools de AMM (consulte la sección 3.2 tokenomics)
+	- Los proveedores de liquidez pueden participar en la gobernanza de AMM (consulte la sección 2.10 Los parámetros y Gobernanza de AMM).
+	
+- Riesgos:
+  - Cuando el AMM mantiene una posición,  este está expuesto a un factor de riesgo, si el índice del precio cambia en ese momento, podría podría generar pérdidas al AMM. En este caso estas pérdidas potenciales serán compartidas por todos los proveedores de liquidez. 
 
-#### Trader
-Traders are the major participants in the market. Traders realize PNL by trading against AMM and they are always the taker. In this protocol, all trades must go through AMM, and traders can’t bypass AMM to trade amongst themselves. For every trade, traders need to pay a certain amount of transaction fee. In addition, trader will pay or receive funding payment according to the funding rate policy.
+#### Trader:
+Los traders forman la mayor parte del mercado. Los operantes llevan  a cabo la cuenta de ganancias y pérdidas (P & L) comerciando contra AMM siendo estos  siempre los beneficiarios. En este protocolo, todas las operaciones deben pasar por AMM, en este caso ninguno de los traders puede pasar por alto el AMM y generar trading entre ellos mismos. Para cada operación, los comerciantes deben pagar una cierta cantidad de tarifa de transacción. Además, el comerciante pagará o recibirá el pago de la financiación de acuerdo con la política de tasas de financiamiento.
 
-#### Keeper
-Keeper is an auxiliary role. Anyone can be a keeper to liquidate accounts with insufficient margin (see section 2.4 liquidation). 
+#### Guardián:
+Guardián es una función auxiliar. Cualquiera puede ser un guardián para liquidar cuentas con margen insuficiente (ver sección 2.4 liquidación).
 
-#### Delegator
-A delegator is a special role. There could be a delegator for every margin account. A delegator can operate over the account to trade (directly against AMM or through a broker), but they can’t withdraw fund from the account. The goal of delegator is to separate hot and cold wallets and realize the custody of trading strategies. 
+#### Delegado:
+El rol de delegado es un caso especial puesto que podría haber un delegado para cada  cuenta de margen. Un delegado puede operar sobre la cuenta para comerciar (bien sea a través o directamente contra el AMM o mediante un broker), sin embargo estos no pueden retirar fondos de la cuenta bajo ningún motivo. El objetivo en particular del delegado es separar las billeteras frías y calientes y llevar a cabo la custodia de las estrategias comerciales. 
 
-### 2.2 Funding Payment
-Similar with the traditional perpetual swap, this protocol utilizes funding payment to anchor the index price. 
+### 2.2 pago de financiación:
+Al igual que con el intercambio perpetuo tradicional o Perpetual Swap, este protocolo utiliza el pago de financiación para anclar el precio del índice.
+Dado que todas las operaciones deben pasar por AMM, el mercado alcanza el equilibrio cuando el AMM no mantiene ninguna posición. En este punto, el AMM proporcionará la mejor oferta y el mejor precio de demanda alrededor del índice, manteniendo así el precio de mercado actual cercano al índice.
+El precio de AMM fluctúa según su posición. Cuando el AMM tiene posiciones largas, el precio de de este será más bajo que el precio del índice y viceversa, cuando  el AMM adquiere posiciones en corto. Dicho de otra forma, el mercado se encuentra desbalanceado en este punto, por lo tanto, el precio de mercado cambiará en relación con el índice. En este caso, el protocolo efectuará el cobro del pago de financiación de las posiciones en contra del AMM, en cuanto a los traders con posiciones a favor del AMM, estos terminaran recibiendo el pago de la financiación. Por consiguiente, el AMM recibe el pago de la financiación siempre y cuando mantenga posiciones de trade. La tasa de financiación se correlaciona positivamente con el tamaño de la posición del AMM, es decir, cuantas más posiciones tiene el AMM, más se desvía el precio de mercado, lo que provoca un pago de financiación más alto.
+Por un lado, el pago de financiación puede evitar que más traders se conviertan en contrapartes del AMM, algo que podría provocar una mayor desviación de precios. Por otro lado, una tasa más alta de financiamiento atraerá más proveedores de liquidez y por consiguiente más fondos a la hora de abrir una posición con AMM. Además, basado en el diseño del AMM, tanto la agregación de liquidez como la negociación en corto del AMM, condición  que reduce el tamaño de la posición de AMM, facilitarán la disminución en la desviación estándar de precios. En conclusión, el pago de la financiación hará que el precio de mercado vuelva al índice.
 
-Since all trades must go through AMM, the market reaches balance when AMM doesn’t have any position. At this point AMM will provide the best bid and the best ask price around the index, then the current market price is close to the index. 
 
-The AMM price shifts according to its position. When AMM longs, the AMM price will be lower than the index price, and vice versa when AMM shorts. In other word, the market is out of balance at this point, so the market price will shift relative to the index. In this case, the protocol will charge funding payment from the positions opposite to AMM and the traders with the same position of AMM will also receive the funding payment. AMM always receives funding payment as long as it holds positions. The funding rate is positively correlated with AMM’s position size, i.e. the more position AMM holds, the further away the market price deviates, causing a higher funding payment.
+### 2.3 Margen de ganancias y pérdidas (P&L)
+Debido a la naturaleza abierta y sin permisos de este protocolo, cualquiera puede crear intercambios perpetuos con diferentes niveles de riesgo. Para evitar la propagación del riesgo entre diferentes intercambios perpetuos o perpetual swaps, el protocolo utiliza un mecanismo de margen aislado: En síntesis cada uno de los perpetual swaps de cada trader tiene su propia cuenta de margen independiente, además el margen de ganancias y beneficios de la cuenta no le afectara  bajo ninguna medida a otras cuentas de margen que los traders puedan abrir y o negociar
 
-On one hand, funding payment can prevent more traders from becoming the counterparty of AMM, which could lead to a further price deviation. On the other hand, a high funding rate will attract more LP to add liquidity or open the same position with AMM. Based on the AMM design, both adding liquidity to AMM and trading against AMM which reduces the AMM’s position size will decrease price deviation. In such a way, funding payment will push the market price back to the index. 
+Cuando un trader se posiciona en largo o en corto sobre un `ΔN` contratos a un precio de entrada determinado `P_entry`, `ΔN>0` indica que el trader se posiciona en largo, `ΔN<0` indica que el trader toma una posición o posiciones en corto. 
 
-### 2.3 Margin & PNL
-Due to the permissionless nature of this protocol, anyone can create any perpetual swaps of different risk levels. To prevent the spread of risk across different perpetual swaps, the protocol uses isolated margin mechanism - each perpetual swap owned by a trader has its own independent margin account, and the PNL of this account won’t affect other margin accounts they trade. 
-
-When a trader enters long or short position of `ΔN` contracts at a certain entry price `P_entry`, `ΔN>0` indicates that the trader longs, `ΔN<0` indicates that the trader shorts. 
-
-When opening position, the margin balance of the trader’s margin account must be larger than or equal to the Initial Margin: 
+Al abrir la posición, el saldo margen de la cuenta de margen del trader en este caso debe ser mayor que o igual al margen inicial:
 
      P_mark·|ΔN|·R_im
 
-P_mark is the mark price provided by Oracle. `P_mark` is usually equal to the index price `P_index` or is a TWAP result of `P_index` when using some decentralized Oracle like Uniswap.  `M_im` is the Initial Margin Rate of the perpetual contract.
+P_mark marca el  precio  proporcionado por el oráculo. `P_mark` suele ser igual al precio índice `P_index` O es  un resultado TWAP de `P_index` cuando se utiliza algún oráculo descentralizado como  por ejemplo Uniswap.  `M_im` es la tasa inicial del margen del perpetual swap
 
-The PNL (Profit and Loss) of the position is calculated as follows:
+La Pérdidas y Ganancias o P&L de la posición se calcularía del siguiente modo:
 
     (P_mark-P_entry)·ΔN	
   
-The profit of the MCDEX perpetual position can be withdrawn at any time, i.e. “PNL” always refers to its realized state. And the position loss is deducted from the margin balance in real time.
+En cualquier momento  se puede retirar el beneficio de la posición perpetua de MCDEX, es decir, "P & L" siempre se refiere a su estado natural, mientras que la pérdida de posición se deduce del saldo margen en tiempo real.
 
-Trader can close position at an exit price P_exit. The PNL after the trader closes the position is:
+El trader puede cerrar la posición a un precio de salida 𝑃𝑒𝑥𝑖𝑡. El P&L después de que el trader cierra su posición es:
 
     (P_exit-P_entry)·ΔN	
 
-The trader must ensure that the margin balance of the margin account always be larger than or equal to the Maintenance Margin:
+El trader debe asegurarse de que el balance de la cuenta de margen siempre sea mayor o igual que el margen de mantenimiento:
 
     P_mark·ΔN·M_mm
 
-If the maintenance margin requirement cannot be met, the position will be liquidated.
+Si no se puede cumplir con el requisito básico del margen de mantenimiento, la posición se liquidará automáticamente
 
-In the end, every perpetual swap has a “Keeper Gas Reward” parameter. When the position is liquidated, the keeper will receive a set amount of reward to pay for Gas. Therefore, our protocol requires that, as long as the position size of margin account is bigger than 0 (disregarding the position value), the margin balance has to be sufficient for the “Keeper Gas Reward”. Otherwise, the position will be liquidated. 
+Al final, cada Perpetual Swap tiene un parámetro de "Recompensa como guardián del gas". Cuando se liquida una posición, el poseedor recibirá una cantidad fija en calidad de recompensa para pagar el gas. Por lo tanto, nuestro protocolo requiere que, siempre que el tamaño de la posición de la cuenta de margen sea mayor que 0 (sin tener en cuenta el valor de la posición), el balance del margen debe ser suficiente para efectuar la “Recompensa del guardián del gas”. De no ser así, la posición se liquidará. 
 
-### 2.4 Liquidation
-When the margin balance is less than the maintenance margin, the position will be liquidated. The keeper initiates liquidation against positions with insufficient margin. Anyone could act as a keeper. There are two ways of liquidation:
+### 2.4 liquidación
+Cuando el balance de la cuenta de margen es menor que el margen de mantenimiento, la posición se liquidará. El guardián inicia la liquidación contra posiciones que muestran márgenes insuficientes. Cualquiera puede actuar como guardián. Hay dos formas de liquidación:
 
-- Liquidation through AMM: Liquidated position will be closed through AMM, meaning that this position is transferred to AMM. Liquidation penalty also goes to AMM’s liquidity pool. The keeper will receive a certain amount of “Keeper Gas Reward”.
-- Taken over by Keeper: The liquidated position will be transferred to keeper. In this case, the keeper takes the position risk and receives the liquidation penalty. 
+- Liquidación a través del AMM: La posición liquidada se cerrará a través de AMM, lo que significa que esta posición se ha de transferir al AMM. La sanción por liquidación también se destinará a la piscina de liquidez de AMM. El guardián recibirá una cierta cantidad en calidad de recompensa como guardián de gas.
+- Control asumido por el guardián: La posición liquidada se transferirá al guardián. En este caso, el guardián asume el riesgo de la posición y recibe a cambio los fondos subyacentes de la liquidación.
 
-### 2.5 Settlement
+### 2.5 Convenio
 
-Although it is a perpetual swap, there could be a liquidity deficiency in extreme situations. If there is a liquidation loss due to AMM liquidity deficiency or delayed liquidation, the insurance fund in AMM will prioritize making up the liquidation loss. If the AMM insurance fund is insufficient, the contract will enter settlement stage. The perpetual swap will settle at the latest index price, and the remaining asset will be distributed to traders according their margin balance. i.e. The liquidation loss is undertaken by all position-holding traders based on their margin balance. For those who doesn’t have any position, they will not be charged with any liquidation loss. We believe that under extreme circumstances, entering settlement promptly and allowing traders to withdraw margin will protect all sides. This mechanism is a form of circuit breaker. 
+Si bien se trata de un Perpetual Swap , podría llegar a existir una deficiencia de liquidez en situaciones extremas. Si existe una pérdida por liquidación debido a la deficiencia de liquidez del AMM o retrasos de liquidación, el fondo de seguro en el AMM dará prioridad inmediata a la recuperación de la pérdida de liquidación. Si el fondo de seguro de AMM es insuficiente, el contrato entrará en la fase de liquidación. El Perpetual Swap se liquidará al último índice del precio y el activo restante se distribuirá a los traders restantes de acuerdo con su balance de margen. Es decir, la pérdida por liquidación la asumen todos los operadores que mantienen posiciones en función de su balance de margen. Para aquellos que no tienen ninguna posición, no se les imputará ninguna pérdida por liquidación. Creemos que, en circunstancias extremas, crear un convenio puntual permitirá que los traders retiren sus márgenes protegerá indudablemente a todas las partes. Este mecanismo es una forma de solventar emergencias.
 
-Besides, when Oracle does not provide updates for over 24 hours, the contract will also enter settlement. 
+Además, cuando el oráculo deja de proporcionar actualizaciones durante más de 24 horas, el contrato también entrará automáticamente en liquidación.
 
-There are two stages of settlement. The first one is called “Emergency”, in which the Oracle stops updating. At this point, keepers will review all the margin accounts and obtain “Keeper Gas Reward”. During the review, the margin balance will be calculated based on the settlement price. When the review is completed, settlement enters a second stage called “Cleared”. Traders can then withdraw the remaining margin. 
+Hay dos etapas de convenio. El primero se llama "Emergencia", en el cual el oráculo deja de actualizarse. En este punto, los guardianes revisarán todas las cuentas de margen y obtendrán el “Keeper Gas Reward” el gas de recompensa del guardián. Durante la revisión, el balance del margen se calculará en función del precio de liquidación. Cuando se lleve a cabo completamente la revisión, el convenio entra en una segunda etapa denominada "Aclarado". Una vez sucede esto, los traders pueden retirar el margen restante.
 
-### 2.6 Insurance Fund
+### 2.6 Fondo asegurador
 
-Every perpetual swap comes with one insurance fund to pay for liquidation loss: 
+Cada Perpetual Swap tiene integrado un fondo asegurador para pagar las pérdidas  de liquidación.
 
-Anyone can donate to the insurance fund. We encourage operators to donate to the initial capital and supplement the insurance fund as the contract runs. 
+Cualquiera puede realizar donaciones al fondo asegurador. Alentamos a los usuarios a donar al capital inicial y a complementar el fondo del seguro a medida que se ejecuta el contrato. 
 
-When trader’s position gets liquidated due to insufficient margin, a certain ratio (based on the AMM parameters) of the charged liquidation penalty goes to the insurance fund. The remaining part goes to the liquidator (AMM or keeper). Every insurance fund has a max fund size. When this maximum size is reached, the newly added fund goes into the liquidity pool of AMM. LP can increase this upper limit through governance, but it can’t be decreased. 
+Cuando la posición del operador se liquida debido a un margen insuficiente, una cierta proporción (basada en los parámetros AMM) de la penalización por liquidación a cobrar se destinará al fondo asegurador. La parte restante va al liquidador (AMM o guardián). Cada fondo asegurador tiene un tope máximo de fondos. Cuando se alcanza este tope máximo, el fondo recién agregado pasa al fondo de liquidez de AMM. Un proveedor de liquidez puede aumentar este límite superior a través de la gobernanza, pero nunca se podrá reducir.
 
-### 2.7 Limit & Stop Orders
+### 2.7 Órdenes de venta y órdenes límite
 
-Trading against AMM is similar to place a market order to the traditional order book. In the case of perpetual swaps, people are usually inclined to look for opportunities and control fill price through limit orders. Besides, Stop order is an important tool for high leveraged trades. Hence, we designed relatively centralized limit and stop orders. The trader can sign a limit or a stop order and send the order to an entrusted “Broker” server. The Broker sever will observe the AMM price on the chain and submit order to the contract when the AMM price meets the order’s requirement. When the smart contract receives order from Broker, it will proceed the order after verifying its validity.
+Negociar contra el AMM es similar a colocar una orden tradicional de mercado en el libro de órdenes tradicional. En el caso de los Perpetual Swaps, los traders suelen estar inclinados a buscar oportunidades y controlar el precio de ejecución mediante órdenes limitadas. Además, la orden de venta es una herramienta importante para operaciones con alto apalancamiento. Por lo tanto, diseñamos órdenes límite y de venta relativamente centralizadas. El trader de esta forma, puede firmar una orden límite o de venta y enviar la orden a un servidor de confianza o "Broker” El servidor broker observará el precio del AMM en la cadena y enviará la orden al contrato cuando el precio del AMM cumpla con el requisito de la orden. Cuando el contrato inteligente reciba una orden del Broker, este procederá a ejecutar la orden después de verificar su validez.
 
-Keep in mind that Broker wouldn’t match the received orders, so all the orders will be traded against AMM in the first-in-first-service order. Broker will charge traders with the Gas fee. 
+Se ha de tener en cuenta que el broker no coincidirá con las órdenes recibidas, por lo cual,  todas las órdenes se negociarán directamente contra el AMM serán ejecutadas en orden de antigüedad, es decir las primeras serán ejecutadas antes. Además el broker cobrará a los traders la tarifa de gas.
 
-### 2.8 Security
+### 2.8 Seguridad
 
-We fully understand that security is the key factor of this type of protocols. Before getting published, all contracts and upgrades will go through strict audit. The design of AMM’s financial structure will be verified as well. 
+Entendemos perfectamente que la seguridad es el factor clave de este tipo de protocolos. Cabe recordar que antes de ser publicados, todos los contratos y actualizaciones pasarán por una estricta auditoría. Además también se verificará el diseño de la estructura financiera del AMM.
+Por último para maximizar la característica descentralizada de este protocolo, no hay una clave de administración en el código. 
 
-To maximize the decentralized characteristic of this protocol, there is no admin key in the code. 
+Por último para maximizar la característica descentralizada de este protocolo, no hay una clave de administración en el código. 
 
-Although operators have limited privileges over the perpetual swaps, which to an extent increase the security, traders need to carefully choose the perpetual swaps they would like to trade and trade at their own risk. We encourage operators to choose decentralized Oracles and limit the risk parameters in a smaller range (or set fixed parameters), so that the credibility can be increased. 
+Aunque los operadores tienen privilegios limitados sobre los Perpetual Swaps, que hasta cierto punto aumentan la seguridad del protocolo, los traders han de elegir cuidadosamente los Perpetual Swaps que les gustaría negociar y operar estrictamente bajo su propio riesgo. Alentamos a los operadores a elegir oráculos descentralizados y limitar así los parámetros de riesgo a un rango más pequeño (o establecer parámetros fijos), de modo que se pueda aumentar la credibilidad.
 
-### 2.9 Referral
+### 2.9 Remitente
 
-Referral fee is supported in this protocol. The referrer will receive a certain amount of referral fee from the operator fee and LP fee when their referee trades against AMM or through a broker. The ratio of this referral fee will be set by AMM governance. In such way, institutional investors can profit from referring traders to AMM by running their own frontend. 
+Este protocolo admite comisiones de referidos. El remitente recibirá una cierta comisión derivada de las tarifas de los trades y proveedores de liquidez cuando el arbitraje de estos negocie contra el AMM o mediante un broker. La proporción de esta tarifa remitida será establecida por la gobernanza del AMM. De esta manera, los inversores institucionales pueden beneficiarse de recomendar  traders al AMM ejecutando de esta forma, su propia interfaz.
 
-### 2.10 The Parameters and Governance of AMM
+### 2.10 Parámetros y gobernanza del AMM
 
-The AMM parameters have two categories: the alterable ones and the unalterable ones. Operator and LP can adjust alterable parameters by voting. AMM has a group of risk parameters, and each has an effective range. According to the market, operator can freely adjust the risk parameters within the effective range. A voting procedure is required if there is a need to change the range. 
+Los parámetros del AMM presentan dos categorías: los modificables y los inalterables. El operador y el proveedor de liquidez pueden ajustar los parámetros modificables votando. El AMM tiene un grupo de parámetros de riesgo y cada uno tiene un nivel efectivo. Según el mercado, el operador puede ajustar libremente los parámetros de riesgo dentro del rango efectivo. Para realizar cambios en el rango si es necesario, se ha de recurrir a un procedimiento de votación.
 
-An operator can initiate a proposal. If there is no operator in the perpetual swap, LP with a more than 1% share can also initiate the proposal. Each proposal will proceed by vote among LP who owns LP token before the proposal was initiated. The vote quorum must be more than 10% of the total LP share. The voting period lasts 72 hours, and the resolution can become effective after a 24-hour time lock. When voting, LP needs to stake their LP token. If the proposal passes, then the LP token that voted yes will be unlocked after 72 hours since the execution of the proposal; the LP token that voted no will be unlocked immediately. If the proposal fails, then all LP token will be unlocked right after the voting period. When an LP initiates a proposal, the system will automatically record their vote as “yes” and lock their LP token. 
+Un operador puede iniciar una propuesta. Siempre y cuando no haya un operador en el Perpetual Swap, también puede iniciar la propuesta los proveedores de liquidez con una participación superior al 1%. Cada propuesta procederá por votación entre los proveedores de liquidez que posean el token adjudicado a estos antes de que se inicie la propuesta. El quórum de votos debe ser superior al 10% del total de los activos del proveedor de liquidez. El período de votación dura 72 horas y la resolución puede entrar en vigencia después de un periodo de 24 horas. Al votar, los proveedores de liquidez han de depositar sus tokens de liquidez. Si se aprueba la propuesta, entonces el token de los proveedores de liquidez que votaron sí se desbloquearán automáticamente después de 72 horas desde la ejecución de la propuesta; el token de liquidez de los liquidity providers que votaron no se desbloqueará inmediatamente. Si la propuesta falla, entonces todos los tokens de los proveedores de liquidez se desbloquearán inmediatamente después del período de votación. Cuando un proveedor de liquidez inicia una propuesta, el sistema registra automáticamente su voto como "sí" y bloqueará su token de liquidez. 
 
-| AMM Parameters | Definition | Alterable/Unalterable |
-|----------------|------------|-----------------------|
-|Underlying Asset|	A string that identifies the underlying asset|	Unalterable|
-|Collateral Token Address|	Collateral ERC20 token address|	Unalterable|
-|Operator Address|	Operator’s address|	Alterable by Operator|
-|Oracle Adapter Address|	Address of adapter compatible for Mai3 Oracle|	Unalterable
-|Initial Margin Rate|	Determines the max leverage when open position|	Alterable by LP Governance (only decrements are allowed)
-|Maintenance Margin Rate|	Determines the leverage when position is liquidated; Smaller than the initial margin rate|	Alterable by LP Governance (only decrements are allowed)|
-|Vault Fee|	The rate of trading fee that enters the DAO Vault|	Alterable by MCDEX DAO Governance|
-|Operator Fee|	The rate of trading fee that goes to operator; Less than 1%|	Alterable by LP Governance|
+| Parametros deAMM | Definicion | Alterable/Inalterable |
+|------------------|------------|-----------------------|
+|Activo subyacente | Una cadena que identifica el activo subyacente.| Inalterable |
+|Dirección del token colateral|	Dirección del colateral ERC 20 token | Inalterable |
+|Dirección del operador | La dirección propia del operador | Alterable por el operador|
+|Dirección del adaptador del oráculo | La dirección del adaptador es compatible con el oráculo Mai3 | Inalterable |
+|ITasa de margen inicial | Determina el apalancamiento máximo en el momento de abrir la posición | Alterable por la gobernanza de los proveedores de liquidez (solo se permite disminuciones)|
+|Tasa de mantenimiento del margen | Determina el apalancamiento cuando se liquida la posición; Más pequeño que la tasa de margen inicial | Alterable por la gobernanza de los proveedores de liquidez (solo se permite disminuciones)|
+|Tarifa de la bóveda | La tasa de comisiones de trading que ingresan en la DAO bóveda |	Alterable por la gobernanza de MCDEX DAO |
+|Tarifa de operador | The rate of trading fee that goes to operator; Less than 1%|	Alterable by LP Governance|
 |LP Fee|	The rate of trading fee that goes to LP; Less than 1%|	Alterable by LP Governance|
 |Referral Fee|	The rate of referral fee from the Operator Fee and LP Fee|	Alterable by LP Governance|
 |Liquidation Penalty Rate|	The rate of liquidation penalty. Liquidation Penalty=Position Value* Liquidation Penalty; Smaller than the maintenance margin rate|	Alterable by LP Governance|
